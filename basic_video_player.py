@@ -255,6 +255,8 @@ if __name__ == "__main__":
         path_source = Path(
             filedialog.askopenfilename(title="Select video", filetypes=[("Video", ".mp4 .avi")])
             )
+        if path_source.suffix not in (".mp4", ".avi"):
+            exit()
 
     bs = BasicPlayer(path_source)
     bs.run_player()
