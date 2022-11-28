@@ -27,6 +27,8 @@ import sys
 # Reading settings, now it is just folder for screenshots
 with open(Path(__file__).parent.joinpath("settings")) as file:
     OUT_FOLDER = Path(file.readline().rstrip())
+    if str(OUT_FOLDER) == ".":
+        OUT_FOLDER = Path(__file__).parent
     SAMPLING = file.readline().rstrip()
     if SAMPLING in ("1", "2", "3", "4", "5"):
         SAMPLING = int(SAMPLING)
@@ -109,7 +111,7 @@ class BasicPlayer:
         cv2.imshow(
             self.name_window, 
             np.zeros((self.vr.height, self.vr.width), dtype="uint8")[::SAMPLING, ::SAMPLING]
-            )
+        )
         cv2.createTrackbar('Frame id', self.name_window, 0, self.vr.n_frames - 1, self.frame_id_changed)
 
         # Reading the first frame
@@ -186,7 +188,7 @@ class BasicPlayer:
                 # Store frame
                 frame = self.vr.frame.copy()
                 cv2.imwrite(
-                    str(OUT_FOLDER.joinpath(datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".png")), 
+                    str(OUT_FOLDER.joinpath(self.file_path.stem + f"_{self.vr.frame_id}.png")), 
                     frame
                     )
             elif key_pressed == ord("r") or key_pressed == ord("R"):
@@ -247,7 +249,6 @@ if __name__ == "__main__":
     # pyinstaller basic_video_player.py --add-data settings;.
     path_source = None
     list_args = sys.argv
-    print(*list_args, sep="\n")
     if len(list_args) > 1:
         path_source = Path(list_args[1])
 

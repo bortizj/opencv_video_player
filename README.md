@@ -17,4 +17,4 @@ Open the application and select the video file from a folder
 There is a settings file along with the executable where you can set the path for storing the 
 screenshots taken with the software. The first line of the settings file is the path to the 
 folder to store the images and the second line is the sampling factor in case that the image 
-does not fit your screen (int 1, 2, 3, 4 or 5).
+does not fit your screen (int 1, 2, 3, 4 or 5). By default is 1 and the executable path.
